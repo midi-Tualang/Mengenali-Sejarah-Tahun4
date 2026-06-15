@@ -4,330 +4,281 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit 1: Mengenali Sejarah - Tahun 4</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --primary: #ff9800;
             --secondary: #4caf50;
+            --error: #f44336;
             --accent: #2196f3;
-            --bg: #fff9c4;
-            --text: #333;
+            --bg: #fffde7;
+            --card-bg: #ffffff;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; background-color: var(--bg); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0; }
 
-        .container {
-            width: 95%;
-            max-width: 800px;
-            background: white;
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+        .container { width: 100%; max-width: 850px; padding: 20px; }
+        .slide-container { background: var(--card-bg); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 20px; border: 4px solid #fff; position: relative; }
+        
+        .header { text-align: center; background: linear-gradient(135deg, var(--primary), #f57c00); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; }
 
-        .header {
-            text-align: center;
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        /* Nota Styles */
-        .note-card {
-            background: #fff3e0;
-            border-left: 10px solid var(--primary);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 0 15px 15px 0;
-        }
-
-        .source-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .source-box {
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-            color: white;
-        }
-
-        .p-source { background: #e91e63; }
-        .s-source { background: #9c27b0; }
-
-        /* Button Styles */
-        .btn {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
-            transition: 0.3s;
-        }
-
-        .btn:hover { transform: scale(1.05); }
-
-        /* Quiz Styles */
+        .note-card { background: #fff3e0; border-left: 8px solid var(--primary); padding: 15px; margin-bottom: 15px; border-radius: 0 12px 12px 0; }
         .hidden { display: none; }
-        .question-box {
-            background: #f1f8e9;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            border: 2px solid #c5e1a5;
-        }
 
-        .option {
-            display: block;
-            background: white;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            cursor: pointer;
-        }
+        .question-box { background: #fdfdfd; padding: 20px; margin-bottom: 20px; border-radius: 15px; border: 2px solid #eee; }
+        .option-label { display: block; background: white; padding: 12px; margin: 8px 0; border-radius: 10px; border: 2px solid #ddd; cursor: pointer; transition: 0.2s; }
+        .option-label:hover { border-color: var(--accent); }
 
-        .option:hover { background: #e3f2fd; }
+        .correct { background-color: #c8e6c9 !important; border-color: var(--secondary) !important; font-weight: bold; }
+        .wrong { background-color: #ffcdd2 !important; border-color: var(--error) !important; }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            margin-top: 10px;
-        }
+        .feedback { font-weight: bold; margin-top: 10px; display: none; padding: 8px; border-radius: 5px; }
 
-        .matching-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            background: #e1f5fe;
-            padding: 10px;
-            border-radius: 10px;
-        }
+        .matching-row { display: flex; align-items: center; justify-content: space-between; background: #e1f5fe; padding: 15px; margin-bottom: 10px; border-radius: 12px; gap: 15px; }
+        .match-select { padding: 10px; border-radius: 8px; border: 2px solid var(--accent); flex: 1; }
 
-        select {
-            padding: 8px;
-            border-radius: 8px;
-        }
+        .btn { background: var(--secondary); color: white; border: none; padding: 15px 35px; font-size: 1.1rem; border-radius: 50px; cursor: pointer; display: block; margin: 20px auto; font-weight: bold; transition: 0.3s; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; opacity: 0.6; }
+        .btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        .result-btn {
-            background: var(--accent);
-        }
-
-        /* Result Popup */
-        #score-display {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary);
-            margin-top: 20px;
-        }
+        .progress-bar { width: 100%; height: 10px; background: #eee; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--secondary); width: 0%; transition: 0.5s; }
+        
+        input[type="text"] { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ddd; margin-top: 10px; font-size: 1rem; }
 
         @media (max-width: 600px) {
-            .source-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 1.5rem; }
+            .matching-row { flex-direction: column; }
+            .match-select { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<div class="container" id="note-section">
+<div class="container" id="intro-page">
     <div class="header">
-        <h1><i class="fas fa-landmark"></i> UNIT 1: MENGENALI SEJARAH</h1>
-        <p>Jom baca nota penting sebelum mula latihan!</p>
+        <h1><i class="fas fa-history"></i> UNIT 1: MENGENALI SEJARAH</h1>
+        <p>Baca nota dengan teliti sebelum menjawab!</p>
     </div>
-
-    <div class="note-card">
-        <h3><i class="fas fa-book-open"></i> Apa itu Sejarah?</h3>
-        <p>Sejarah ialah peristiwa yang <b>benar-benar berlaku</b> pada masa lalu. Ia memberi iktibar dan pengajaran kepada kita.</p>
-    </div>
-
-    <div class="note-card">
-        <h3><i class="fas fa-users"></i> Pendapat Sejarawan</h3>
-        <ul>
-            <li><b>Herodotus:</b> Tindakan manusia dan sebab melakukannya.</li>
-            <li><b>Ibn Khaldun:</b> Peradaban manusia dan perubahan berlaku.</li>
-            <li><b>E.H. Carr:</b> Interaksi masa kini dengan masa lampau.</li>
-            <li><b>Tan Sri Khoo Kay Kim:</b> Peristiwa yang pernah atau sudah berlaku.</li>
-        </ul>
-    </div>
-
-    <div class="source-grid">
-        <div class="source-box p-source">
-            <h4><i class="fas fa-file-signature"></i> Sumber Primer</h4>
-            <p>Belum diolah / Asal</p>
-            <small>Fosil, Artifak, Manuskrip, Dokumen Rasmi</small>
+    <div class="slide-container">
+        <div class="note-card">
+            <h3><i class="fas fa-info-circle"></i> Apa itu Sejarah?</h3>
+            <p>Sejarah ialah peristiwa yang <b>benar-benar berlaku</b> pada masa lalu. Membantu kita memahami asal usul dan mendapat pengajaran.</p>
         </div>
-        <div class="source-box s-source">
-            <h4><i class="fas fa-newspaper"></i> Sumber Sekunder</h4>
-            <p>Dihasilkan dari sumber asal</p>
-            <small>Buku, Majalah, Akhbar, Risalah</small>
+        <div class="note-card">
+            <h3><i class="fas fa-microscope"></i> Sumber Sejarah</h3>
+            <p><b>Primer:</b> Fosil, Artifak, Manuskrip (Belum diolah).</p>
+            <p><b>Sekunder:</b> Buku, Akhbar, Majalah (Telah diolah/ditulis).</p>
         </div>
+        <button class="btn" onclick="showSection('page-a')">Mula Bahagian A <i class="fas fa-play"></i></button>
     </div>
-
-    <button class="btn" onclick="startQuiz()">Mula Latihan <i class="fas fa-arrow-right"></i></button>
 </div>
 
-<div class="container hidden" id="quiz-section">
-    <div class="header">
-        <h2>LATIHAN PENGUKUHAN</h2>
+<div class="container hidden" id="page-a">
+    <div class="slide-container">
+        <h2>BAHAGIAN A (Pilihan Ganda)</h2>
+        <div class="progress-bar"><div class="progress-fill" id="progress-a"></div></div>
+        <div id="content-a"></div>
+        <button class="btn hidden" id="next-to-b" onclick="showSection('page-b')">Seterusnya (Bahagian B) <i class="fas fa-arrow-right"></i></button>
     </div>
+</div>
 
-    <h3>BAHAGIAN A: SOALAN OBJEKTIF (15 Soalan)</h3>
-    <div id="objektif-container"></div>
+<div class="container hidden" id="page-b">
+    <div class="slide-container">
+        <h2>BAHAGIAN B (Subjektif)</h2>
+        <div class="progress-bar"><div class="progress-fill" id="progress-b"></div></div>
+        <p><small>*Sila isi semua kotak jawapan untuk ke bahagian seterusnya.</small></p>
+        <div id="content-b"></div>
+        <button class="btn hidden" id="next-to-c" onclick="showSection('page-c')">Seterusnya (Bahagian C) <i class="fas fa-arrow-right"></i></button>
+    </div>
+</div>
 
-    <hr>
+<div class="container hidden" id="page-c">
+    <div class="slide-container">
+        <h2>BAHAGIAN C (Padanan)</h2>
+        <div class="progress-bar"><div class="progress-fill" id="progress-c"></div></div>
+        <p><small>*Pilihan jawapan akan hilang jika sudah dipilih soalan lain.</small></p>
+        <div id="content-c"></div>
+        <button class="btn hidden" id="final-submit" onclick="submitFinal()">Semak Jawapan <i class="fas fa-check-double"></i></button>
+    </div>
+</div>
 
-    <h3>BAHAGIAN B: SOALAN SUBJEKTIF (5 Soalan)</h3>
-    <div id="subjektif-container"></div>
-
-    <hr>
-
-    <h3>BAHAGIAN C: PADANAN (10 Soalan)</h3>
-    <div id="matching-container"></div>
-
-    <button class="btn result-btn" onclick="checkAnswers()">Semak Markah Saya! <i class="fas fa-check-circle"></i></button>
-    
-    <div id="score-display"></div>
+<div class="container hidden" id="result-page">
+    <div class="slide-container" style="text-align: center;">
+        <h1 id="total-score">Markah: 0/0</h1>
+        <p>Semakan jawapan telah dipaparkan di bahagian soalan.</p>
+        <button class="btn" onclick="location.reload()">Cuba Lagi <i class="fas fa-redo"></i></button>
+    </div>
 </div>
 
 <script>
-    const quizData = {
-        objektif: [
-            { q: "Apakah maksud sejarah?", a: ["Perkara yang akan berlaku", "Peristiwa benar masa lalu", "Kisah dongeng"], c: 1 },
-            { q: "Siapakah sejarawan yang mengaitkan sejarah dengan 'peradaban manusia'?", a: ["Ibn Khaldun", "Herodotus", "E.H. Carr"], c: 0 },
-            { q: "Sejarah merupakan interaksi masa kini dan masa lampau. Pendapat siapa ini?", a: ["Herodotus", "Ibn Khaldun", "E.H. Carr"], c: 2 },
-            { q: "Sumber primer juga dikenali sebagai...", a: ["Sumber kedua", "Sumber pertama", "Sumber ketiga"], c: 1 },
-            { q: "Antara berikut, yang manakah sumber primer?", a: ["Akhbar", "Buku", "Fosil"], c: 2 },
-            { q: "Apakah contoh sumber sekunder?", a: ["Artifak", "Majalah", "Manuskrip"], c: 1 },
-            { q: "Manuskrip bermaksud...", a: ["Tulisan tangan", "Tinggalan haiwan", "Buku dicetak"], c: 0 },
-            { q: "Artifak merupakan...", a: ["Penulisan buku", "Hasil ciptaan manusia", "Dokumen rasmi"], c: 1 },
-            { q: "Hikayat Hang Tuah dikategorikan sebagai...", a: ["Manuskrip", "Fosil", "Buku teks"], c: 0 },
-            { q: "Tinggalan tumbuhan atau haiwan terawet dipanggil...", a: ["Artifak", "Manuskrip", "Fosil"], c: 2 },
-            { q: "Khoo Kay Kim berkata sejarah merujuk peristiwa yang...", a: ["Akan berlaku", "Sedang berlaku", "Pernah atau sudah berlaku"], c: 2 },
-            { q: "Buku, Majalah dan Akhbar adalah sumber...", a: ["Primer", "Sekunder", "Asal"], c: 1 },
-            { q: "Dokumen rasmi kerajaan adalah sumber...", a: ["Primer", "Sekunder", "Lisan"], c: 0 },
-            { q: "Mengapa sejarah penting?", a: ["Untuk dilupakan", "Mendapat iktibar", "Menjadi hobi"], c: 1 },
-            { q: "Sejarah menceritakan tentang tindakan manusia dan sebab melakukannya. Siapa kata?", a: ["Herodotus", "Ibn Khaldun", "E.H. Carr"], c: 0 }
-        ],
-        subjektif: [
-            "Berikan satu maksud sejarah mengikut E.H. Carr.",
-            "Sebutkan dua contoh sumber primer.",
-            "Apakah beza sumber primer dan sumber sekunder?",
-            "Nyatakan satu contoh artifak.",
-            "Mengapa sejarah penting dalam kehidupan kita?"
-        ],
-        padanan: [
-            { item: "Herodotus", match: "Tindakan manusia" },
-            { item: "Ibn Khaldun", match: "Peradaban manusia" },
-            { item: "Fosil", match: "Tinggalan terawet" },
-            { item: "Artifak", match: "Ciptaan manusia" },
-            { item: "Manuskrip", match: "Tulisan tangan" },
-            { item: "Akhbar", match: "Sumber sekunder" },
-            { item: "E.H. Carr", match: "Interaksi masa lampau" },
-            { item: "Sumber Primer", match: "Belum diolah" },
-            { item: "Majalah", match: "Sumber sekunder" },
-            { item: "Iktibar", match: "Pengajaran" }
-        ]
-    };
+    const quizA = [
+        { q: "Maksud sejarah ialah peristiwa yang...", o: ["Rekaan manusia", "Benar berlaku masa lalu", "Akan datang"], c: 1 },
+        { q: "Siapakah Bapa Sejarah?", o: ["Ibn Khaldun", "Herodotus", "E.H. Carr"], c: 1 },
+        { q: "Sumber primer dikenali juga sebagai...", o: ["Sumber pertama", "Sumber kedua", "Sumber lisan"], c: 0 },
+        { q: "Antara berikut yang manakah sumber primer?", o: ["Buku teks", "Majalah", "Artifak"], c: 2 },
+        { q: "Tinggalan haiwan terawet dinamakan...", o: ["Fosil", "Artifak", "Manuskrip"], c: 0 },
+        { q: "Akhbar dan risalah adalah sumber...", o: ["Primer", "Sekunder", "Lisan"], c: 1 },
+        { q: "Manuskrip ialah hasil tulisan...", o: ["Komputer", "Tangan", "Mesin"], c: 1 },
+        { q: "Sejarah penting supaya kita dapat...", o: ["Banyak harta", "Iktibar/Pengajaran", "Pujian"], c: 1 },
+        { q: "Ibn Khaldun menulis karya bertajuk...", o: ["Muqaddimah", "Sejarah Melayu", "Hikayat Jati"], c: 0 },
+        { q: "Proses interaksi masa lampau dan kini adalah pendapat...", o: ["Herodotus", "Ibn Khaldun", "E.H. Carr"], c: 2 },
+        { q: "Artifak merupakan ciptaan...", o: ["Haiwan", "Manusia", "Alam"], c: 1 },
+        { q: "Hikayat Hang Tuah dikira sebagai...", o: ["Manuskrip", "Fosil", "Akhbar"], c: 0 },
+        { q: "Berapakah kategori sumber sejarah?", o: ["2 Kategori", "3 Kategori", "4 Kategori"], c: 0 },
+        { q: "Sejarah membicarakan peradaban manusia. Siapa kata?", o: ["Ibn Khaldun", "Herodotus", "E.H. Carr"], c: 0 },
+        { q: "Dokumen rasmi kerajaan adalah sumber...", o: ["Primer", "Sekunder", "Dongeng"], c: 0 }
+    ];
 
-    function startQuiz() {
-        document.getElementById('note-section').classList.add('hidden');
-        document.getElementById('quiz-section').classList.remove('hidden');
-        loadQuiz();
-        window.scrollTo(0, 0);
+    const quizB = [
+        "Berikan maksud sejarah secara ringkas.",
+        "Nyatakan satu contoh sumber primer.",
+        "Siapakah sejarawan dari Malaysia yang terkenal?",
+        "Apakah kepentingan mempelajari sejarah?",
+        "Sebutkan satu contoh sumber sekunder."
+    ];
+
+    const quizC = [
+        { i: "Herodotus", m: "Penceritaan tindakan manusia" },
+        { i: "Ibn Khaldun", m: "Peradaban manusia & perubahan" },
+        { i: "E.H. Carr", m: "Interaksi masa lampau & kini" },
+        { i: "Fosil", m: "Tinggalan tumbuhan/haiwan" },
+        { i: "Artifak", m: "Hasil ciptaan manusia (benda)" },
+        { i: "Manuskrip", m: "Tulisan tangan pada kulit/daun" },
+        { i: "Dokumen Rasmi", m: "Catatan asal peristiwa" },
+        { i: "Akhbar", m: "Sumber sekunder harian" },
+        { i: "Buku", m: "Hasil penulisan sumber asal" },
+        { i: "Iktibar", m: "Pengajaran masa lalu" }
+    ];
+
+    function showSection(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+        window.scrollTo(0,0);
     }
 
-    function loadQuiz() {
-        // Load Objektif
-        const objDiv = document.getElementById('objektif-container');
-        quizData.objektif.forEach((item, index) => {
-            let html = `<div class="question-box">
-                <p><b>${index+1}. ${item.q}</b></p>`;
-            item.a.forEach((opt, i) => {
-                html += `<label class="option">
-                    <input type="radio" name="obj${index}" value="${i}"> ${opt}
-                </label>`;
-            });
-            html += `</div>`;
-            objDiv.innerHTML += html;
-        });
-
-        // Load Subjektif
-        const subDiv = document.getElementById('subjektif-container');
-        quizData.subjektif.forEach((q, index) => {
-            subDiv.innerHTML += `<div class="question-box">
-                <p><b>${index+1}. ${q}</b></p>
-                <input type="text" placeholder="Taip jawapan anda di sini...">
+    function init() {
+        // Init Section A
+        const contA = document.getElementById('content-a');
+        quizA.forEach((item, i) => {
+            contA.innerHTML += `<div class="question-box" id="box-a-${i}">
+                <p><b>${i+1}. ${item.q}</b></p>
+                ${item.o.map((opt, oi) => `<label class="option-label" id="label-a-${i}-${oi}">
+                    <input type="radio" name="ra-${i}" value="${oi}" onchange="checkA()"> ${opt}
+                </label>`).join('')}
+                <div class="feedback" id="fb-a-${i}"></div>
             </div>`;
         });
 
-        // Load Matching
-        const matchDiv = document.getElementById('matching-container');
-        const allMatches = quizData.padanan.map(p => p.match).sort();
-        quizData.padanan.forEach((p, index) => {
-            let html = `<div class="matching-item">
-                <span><b>${p.item}</b></span>
-                <select id="match${index}">
-                    <option value="">-- Pilih Padanan --</option>
-                    ${allMatches.map(m => `<option value="${m}">${m}</option>`).join('')}
+        // Init Section B
+        const contB = document.getElementById('content-b');
+        quizB.forEach((q, i) => {
+            contB.innerHTML += `<div class="question-box">
+                <p><b>${i+1}. ${q}</b></p>
+                <input type="text" id="ans-b-${i}" oninput="checkB()" placeholder="Taip jawapan anda...">
+                <div class="feedback" id="fb-b-${i}">Nota: Subjektif perlu semakan guru.</div>
+            </div>`;
+        });
+
+        // Init Section C
+        const contC = document.getElementById('content-c');
+        const sortedM = quizC.map(x => x.m).sort();
+        quizC.forEach((item, i) => {
+            contC.innerHTML += `<div class="matching-row">
+                <span style="flex:1"><b>${item.i}</b></span>
+                <select id="sel-c-${i}" class="match-select" onchange="checkC()">
+                    <option value="">-- Pilih --</option>
+                    ${sortedM.map(m => `<option value="${m}">${m}</option>`).join('')}
                 </select>
+                <div class="feedback" id="fb-c-${i}"></div>
             </div>`;
-            matchDiv.innerHTML += html;
         });
     }
 
-    function checkAnswers() {
-        let score = 0;
+    function checkA() {
+        const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+        const progress = (answered / quizA.length) * 100;
+        document.getElementById('progress-a').style.width = progress + "%";
+        if(answered === quizA.length) document.getElementById('next-to-b').classList.remove('hidden');
+    }
+
+    function checkB() {
+        let filled = 0;
+        quizB.forEach((_, i) => { if(document.getElementById(`ans-b-${i}`).value.trim() !== "") filled++; });
+        const progress = (filled / quizB.length) * 100;
+        document.getElementById('progress-b').style.width = progress + "%";
+        if(filled === quizB.length) document.getElementById('next-to-c').classList.remove('hidden');
+    }
+
+    function checkC() {
+        const selects = document.querySelectorAll('.match-select');
+        const selectedVals = Array.from(selects).map(s => s.value).filter(v => v !== "");
         
-        // Check Objektif
-        quizData.objektif.forEach((item, index) => {
-            const selected = document.querySelector(`input[name="obj${index}"]:checked`);
-            if(selected && parseInt(selected.value) === item.c) {
-                score++;
-            }
+        // Exclude logic
+        selects.forEach(s => {
+            const current = s.value;
+            Array.from(s.options).forEach(opt => {
+                if(opt.value === "") return;
+                if(selectedVals.includes(opt.value) && opt.value !== current) {
+                    opt.disabled = true; opt.style.display = 'none';
+                } else {
+                    opt.disabled = false; opt.style.display = 'block';
+                }
+            });
         });
 
-        // Check Matching
-        quizData.padanan.forEach((p, index) => {
-            const selectedMatch = document.getElementById(`match${index}`).value;
-            if(selectedMatch === p.match) {
-                score++;
-            }
-        });
-
-        // Paparkan Keputusan (Hanya Objektif & Padanan Automatik, Subjektif perlu semakan cikgu)
-        const total = quizData.objektif.length + quizData.padanan.length;
-        document.getElementById('score-display').innerHTML = `
-            <div style="padding:20px; background:#fff; border-radius:15px; border:4px dashed var(--primary)">
-                Markah Anda (Objektif + Padanan): ${score} / ${total}<br>
-                <p style="font-size:1rem; color:#555">Sila tunjukkan jawapan Bahagian B (Subjektif) kepada Cikgu untuk semakan!</p>
-                <button class="btn" onclick="location.reload()">Ulang Semula</button>
-            </div>
-        `;
-        window.scrollTo(0, document.body.scrollHeight);
+        const progress = (selectedVals.length / quizC.length) * 100;
+        document.getElementById('progress-c').style.width = progress + "%";
+        if(selectedVals.length === quizC.length) document.getElementById('final-submit').classList.remove('hidden');
     }
+
+    function submitFinal() {
+        let score = 0;
+        // Check A
+        quizA.forEach((item, i) => {
+            const sel = document.querySelector(`input[name="ra-${i}"]:checked`).value;
+            const fb = document.getElementById(`fb-a-${i}`);
+            fb.style.display = "block";
+            if(parseInt(sel) === item.c) {
+                score++;
+                document.getElementById(`label-a-${i}-${sel}`).classList.add('correct');
+                fb.innerHTML = "Betul ✅"; fb.style.color = "green";
+            } else {
+                document.getElementById(`label-a-${i}-${sel}`).classList.add('wrong');
+                document.getElementById(`label-a-${i}-${item.c}`).classList.add('correct');
+                fb.innerHTML = "Salah ❌"; fb.style.color = "red";
+            }
+        });
+
+        // Check C
+        quizC.forEach((item, i) => {
+            const sel = document.getElementById(`sel-c-${i}`);
+            const fb = document.getElementById(`fb-c-${i}`);
+            fb.style.display = "block";
+            if(sel.value === item.m) {
+                score++;
+                sel.classList.add('correct');
+                fb.innerHTML = "Betul ✅"; fb.style.color = "green";
+            } else {
+                sel.classList.add('wrong');
+                fb.innerHTML = "Jawapan: " + item.m; fb.style.color = "red";
+            }
+        });
+
+        // Show all sections
+        document.getElementById('page-a').classList.remove('hidden');
+        document.getElementById('page-b').classList.remove('hidden');
+        document.getElementById('page-c').classList.remove('hidden');
+        document.getElementById('final-submit').classList.add('hidden');
+        
+        document.getElementById('result-page').classList.remove('hidden');
+        document.getElementById('total-score').innerHTML = `Markah: ${score} / ${quizA.length + quizC.length}`;
+        window.scrollTo(0,0);
+    }
+
+    init();
 </script>
 
 </body>
