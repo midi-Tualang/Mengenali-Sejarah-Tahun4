@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1: Mengenali Sejarah - Tahun 4</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff9800;
+            --secondary: #4caf50;
+            --accent: #2196f3;
+            --bg: #fff9c4;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 800px;
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Nota Styles */
+        .note-card {
+            background: #fff3e0;
+            border-left: 10px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .source-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .source-box {
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        .p-source { background: #e91e63; }
+        .s-source { background: #9c27b0; }
+
+        /* Button Styles */
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: 0.3s;
+        }
+
+        .btn:hover { transform: scale(1.05); }
+
+        /* Quiz Styles */
+        .hidden { display: none; }
+        .question-box {
+            background: #f1f8e9;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            border: 2px solid #c5e1a5;
+        }
+
+        .option {
+            display: block;
+            background: white;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+        }
+
+        .option:hover { background: #e3f2fd; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            margin-top: 10px;
+        }
+
+        .matching-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            background: #e1f5fe;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .result-btn {
+            background: var(--accent);
+        }
+
+        /* Result Popup */
+        #score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .source-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="note-section">
+    <div class="header">
+        <h1><i class="fas fa-landmark"></i> UNIT 1: MENGENALI SEJARAH</h1>
+        <p>Jom baca nota penting sebelum mula latihan!</p>
+    </div>
+
+    <div class="note-card">
+        <h3><i class="fas fa-book-open"></i> Apa itu Sejarah?</h3>
+        <p>Sejarah ialah peristiwa yang <b>benar-benar berlaku</b> pada masa lalu. Ia memberi iktibar dan pengajaran kepada kita.</p>
+    </div>
+
+    <div class="note-card">
+        <h3><i class="fas fa-users"></i> Pendapat Sejarawan</h3>
+        <ul>
+            <li><b>Herodotus:</b> Tindakan manusia dan sebab melakukannya.</li>
+            <li><b>Ibn Khaldun:</b> Peradaban manusia dan perubahan berlaku.</li>
+            <li><b>E.H. Carr:</b> Interaksi masa kini dengan masa lampau.</li>
+            <li><b>Tan Sri Khoo Kay Kim:</b> Peristiwa yang pernah atau sudah berlaku.</li>
+        </ul>
+    </div>
+
+    <div class="source-grid">
+        <div class="source-box p-source">
+            <h4><i class="fas fa-file-signature"></i> Sumber Primer</h4>
+            <p>Belum diolah / Asal</p>
+            <small>Fosil, Artifak, Manuskrip, Dokumen Rasmi</small>
+        </div>
+        <div class="source-box s-source">
+            <h4><i class="fas fa-newspaper"></i> Sumber Sekunder</h4>
+            <p>Dihasilkan dari sumber asal</p>
+            <small>Buku, Majalah, Akhbar, Risalah</small>
+        </div>
+    </div>
+
+    <button class="btn" onclick="startQuiz()">Mula Latihan <i class="fas fa-arrow-right"></i></button>
+</div>
+
+<div class="container hidden" id="quiz-section">
+    <div class="header">
+        <h2>LATIHAN PENGUKUHAN</h2>
+    </div>
+
+    <h3>BAHAGIAN A: SOALAN OBJEKTIF (15 Soalan)</h3>
+    <div id="objektif-container"></div>
+
+    <hr>
+
+    <h3>BAHAGIAN B: SOALAN SUBJEKTIF (5 Soalan)</h3>
+    <div id="subjektif-container"></div>
+
+    <hr>
+
+    <h3>BAHAGIAN C: PADANAN (10 Soalan)</h3>
+    <div id="matching-container"></div>
+
+    <button class="btn result-btn" onclick="checkAnswers()">Semak Markah Saya! <i class="fas fa-check-circle"></i></button>
+    
+    <div id="score-display"></div>
+</div>
+
+<script>
+    const quizData = {
+        objektif: [
+            { q: "Apakah maksud sejarah?", a: ["Perkara yang akan berlaku", "Peristiwa benar masa lalu", "Kisah dongeng"], c: 1 },
+            { q: "Siapakah sejarawan yang mengaitkan sejarah dengan 'peradaban manusia'?", a: ["Ibn Khaldun", "Herodotus", "E.H. Carr"], c: 0 },
+            { q: "Sejarah merupakan interaksi masa kini dan masa lampau. Pendapat siapa ini?", a: ["Herodotus", "Ibn Khaldun", "E.H. Carr"], c: 2 },
+            { q: "Sumber primer juga dikenali sebagai...", a: ["Sumber kedua", "Sumber pertama", "Sumber ketiga"], c: 1 },
+            { q: "Antara berikut, yang manakah sumber primer?", a: ["Akhbar", "Buku", "Fosil"], c: 2 },
+            { q: "Apakah contoh sumber sekunder?", a: ["Artifak", "Majalah", "Manuskrip"], c: 1 },
+            { q: "Manuskrip bermaksud...", a: ["Tulisan tangan", "Tinggalan haiwan", "Buku dicetak"], c: 0 },
+            { q: "Artifak merupakan...", a: ["Penulisan buku", "Hasil ciptaan manusia", "Dokumen rasmi"], c: 1 },
+            { q: "Hikayat Hang Tuah dikategorikan sebagai...", a: ["Manuskrip", "Fosil", "Buku teks"], c: 0 },
+            { q: "Tinggalan tumbuhan atau haiwan terawet dipanggil...", a: ["Artifak", "Manuskrip", "Fosil"], c: 2 },
+            { q: "Khoo Kay Kim berkata sejarah merujuk peristiwa yang...", a: ["Akan berlaku", "Sedang berlaku", "Pernah atau sudah berlaku"], c: 2 },
+            { q: "Buku, Majalah dan Akhbar adalah sumber...", a: ["Primer", "Sekunder", "Asal"], c: 1 },
+            { q: "Dokumen rasmi kerajaan adalah sumber...", a: ["Primer", "Sekunder", "Lisan"], c: 0 },
+            { q: "Mengapa sejarah penting?", a: ["Untuk dilupakan", "Mendapat iktibar", "Menjadi hobi"], c: 1 },
+            { q: "Sejarah menceritakan tentang tindakan manusia dan sebab melakukannya. Siapa kata?", a: ["Herodotus", "Ibn Khaldun", "E.H. Carr"], c: 0 }
+        ],
+        subjektif: [
+            "Berikan satu maksud sejarah mengikut E.H. Carr.",
+            "Sebutkan dua contoh sumber primer.",
+            "Apakah beza sumber primer dan sumber sekunder?",
+            "Nyatakan satu contoh artifak.",
+            "Mengapa sejarah penting dalam kehidupan kita?"
+        ],
+        padanan: [
+            { item: "Herodotus", match: "Tindakan manusia" },
+            { item: "Ibn Khaldun", match: "Peradaban manusia" },
+            { item: "Fosil", match: "Tinggalan terawet" },
+            { item: "Artifak", match: "Ciptaan manusia" },
+            { item: "Manuskrip", match: "Tulisan tangan" },
+            { item: "Akhbar", match: "Sumber sekunder" },
+            { item: "E.H. Carr", match: "Interaksi masa lampau" },
+            { item: "Sumber Primer", match: "Belum diolah" },
+            { item: "Majalah", match: "Sumber sekunder" },
+            { item: "Iktibar", match: "Pengajaran" }
+        ]
+    };
+
+    function startQuiz() {
+        document.getElementById('note-section').classList.add('hidden');
+        document.getElementById('quiz-section').classList.remove('hidden');
+        loadQuiz();
+        window.scrollTo(0, 0);
+    }
+
+    function loadQuiz() {
+        // Load Objektif
+        const objDiv = document.getElementById('objektif-container');
+        quizData.objektif.forEach((item, index) => {
+            let html = `<div class="question-box">
+                <p><b>${index+1}. ${item.q}</b></p>`;
+            item.a.forEach((opt, i) => {
+                html += `<label class="option">
+                    <input type="radio" name="obj${index}" value="${i}"> ${opt}
+                </label>`;
+            });
+            html += `</div>`;
+            objDiv.innerHTML += html;
+        });
+
+        // Load Subjektif
+        const subDiv = document.getElementById('subjektif-container');
+        quizData.subjektif.forEach((q, index) => {
+            subDiv.innerHTML += `<div class="question-box">
+                <p><b>${index+1}. ${q}</b></p>
+                <input type="text" placeholder="Taip jawapan anda di sini...">
+            </div>`;
+        });
+
+        // Load Matching
+        const matchDiv = document.getElementById('matching-container');
+        const allMatches = quizData.padanan.map(p => p.match).sort();
+        quizData.padanan.forEach((p, index) => {
+            let html = `<div class="matching-item">
+                <span><b>${p.item}</b></span>
+                <select id="match${index}">
+                    <option value="">-- Pilih Padanan --</option>
+                    ${allMatches.map(m => `<option value="${m}">${m}</option>`).join('')}
+                </select>
+            </div>`;
+            matchDiv.innerHTML += html;
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        
+        // Check Objektif
+        quizData.objektif.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="obj${index}"]:checked`);
+            if(selected && parseInt(selected.value) === item.c) {
+                score++;
+            }
+        });
+
+        // Check Matching
+        quizData.padanan.forEach((p, index) => {
+            const selectedMatch = document.getElementById(`match${index}`).value;
+            if(selectedMatch === p.match) {
+                score++;
+            }
+        });
+
+        // Paparkan Keputusan (Hanya Objektif & Padanan Automatik, Subjektif perlu semakan cikgu)
+        const total = quizData.objektif.length + quizData.padanan.length;
+        document.getElementById('score-display').innerHTML = `
+            <div style="padding:20px; background:#fff; border-radius:15px; border:4px dashed var(--primary)">
+                Markah Anda (Objektif + Padanan): ${score} / ${total}<br>
+                <p style="font-size:1rem; color:#555">Sila tunjukkan jawapan Bahagian B (Subjektif) kepada Cikgu untuk semakan!</p>
+                <button class="btn" onclick="location.reload()">Ulang Semula</button>
+            </div>
+        `;
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
+
+</body>
+</html>
