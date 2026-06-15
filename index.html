@@ -35,7 +35,8 @@
         .correct { background-color: #c8e6c9 !important; border-color: var(--secondary) !important; font-weight: bold; }
         .wrong { background-color: #ffcdd2 !important; border-color: var(--error) !important; }
 
-        .feedback { font-weight: bold; margin-top: 10px; display: none; padding: 8px; border-radius: 5px; }
+        .feedback { font-weight: bold; margin-top: 12px; display: none; padding: 10px; border-radius: 8px; font-size: 0.95rem; }
+        .feedback-b-box { background-color: #e8f5e9; border-left: 5px solid var(--secondary); color: #2e7d32; }
 
         .matching-row { display: flex; align-items: center; justify-content: space-between; background: #e1f5fe; padding: 15px; margin-bottom: 10px; border-radius: 12px; gap: 15px; }
         .match-select { padding: 10px; border-radius: 8px; border: 2px solid var(--accent); flex: 1; }
@@ -133,11 +134,11 @@
     ];
 
     const quizB = [
-        "Berikan maksud sejarah secara ringkas.",
-        "Nyatakan satu contoh sumber primer.",
-        "Siapakah sejarawan dari Malaysia yang terkenal?",
-        "Apakah kepentingan mempelajari sejarah?",
-        "Sebutkan satu contoh sumber sekunder."
+        { q: "Berikan maksud sejarah secara ringkas.", a: "Peristiwa yang benar-benar berlaku pada masa lalu." },
+        { q: "Nyatakan satu contoh sumber primer.", a: "Fosil / Artifak / Manuskrip / Dokumen Rasmi." },
+        { q: "Siapakah sejarawan dari Malaysia yang terkenal?", a: "Profesor Emeritus Tan Sri Dr. Khoo Kay Kim / Dr. Muhd Yusof bin Ibrahim." },
+        { q: "Apakah kepentingan mempelajari sejarah?", a: "Mendapat iktibar, pengajaran, atau memupuk semangat patriotisme." },
+        { q: "Sebutkan satu contoh sumber sekunder.", a: "Buku / Majalah / Akhbar / Risalah." }
     ];
 
     const quizC = [
@@ -174,11 +175,11 @@
 
         // Init Section B
         const contB = document.getElementById('content-b');
-        quizB.forEach((q, i) => {
+        quizB.forEach((item, i) => {
             contB.innerHTML += `<div class="question-box">
-                <p><b>${i+1}. ${q}</b></p>
+                <p><b>${i+1}. ${item.q}</b></p>
                 <input type="text" id="ans-b-${i}" oninput="checkB()" placeholder="Taip jawapan anda...">
-                <div class="feedback" id="fb-b-${i}">Nota: Subjektif perlu semakan guru.</div>
+                <div class="feedback feedback-b-box" id="fb-b-${i}"><i class="fas fa-info-circle"></i> <b>Contoh Jawapan Betul:</b> ${item.a}</div>
             </div>`;
         });
 
@@ -252,6 +253,11 @@
             }
         });
 
+        // Papar Jawapan Bahagian B
+        quizB.forEach((_, i) => {
+            document.getElementById(`fb-b-${i}`).style.display = "block";
+        });
+
         // Check C
         quizC.forEach((item, i) => {
             const sel = document.getElementById(`sel-c-${i}`);
@@ -267,7 +273,7 @@
             }
         });
 
-        // Show all sections
+        // Tunjukkan semua bahagian untuk rujukan semula murid
         document.getElementById('page-a').classList.remove('hidden');
         document.getElementById('page-b').classList.remove('hidden');
         document.getElementById('page-c').classList.remove('hidden');
